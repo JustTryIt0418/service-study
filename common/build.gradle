@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'           //부모프로젝트 버전 참조
+    id 'io.spring.dependency-management'    //부모프로젝트 버전 참조
+
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+group = 'org.delivery'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+    implementation 'org.springframework:spring-core:6.2.0'
+    implementation 'org.springframework:spring-context:6.2.0'
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll '-Xjsr305=strict'
+    }
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
